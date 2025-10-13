@@ -130,6 +130,28 @@ var masterList = [
 ];
 
 /**
+ * Función que limpia el chat enviando 50 líneas invisibles (Unicode).
+ * @param {Object} player - El jugador que ejecuta el comando.
+ * @param {string} message - El mensaje de comando completo.
+ * @returns {boolean} False para bloquear el mensaje original del comando.
+ */
+function clearChatFun(player, message) {
+    // Carácter Unicode: Espacio de Ancho Cero (invisible)
+    const INVISIBLE_CHAR = "ㅤㅤ"; 
+    const LINES_TO_CLEAR = 100; 
+
+    for (let i = 0; i < LINES_TO_CLEAR; i++) {
+        // null: público | 0x000000: color negro por defecto (seguro) | 0: sin sonido
+        room.sendAnnouncement(INVISIBLE_CHAR, null, 0x000000, "normal", 0);
+    }
+    
+    // Anuncio de confirmación visible
+    room.sendAnnouncement(`Chat limpiado por ${player.name}. ♡`, null, 0xA9BFFC, "bold", 1);
+    
+    return false; 
+}
+
+/**
  * Función para cambiar el radio de un jugador
  * Formato: !radius <ID>-<tamaño> o !radius reset
  */
@@ -144,7 +166,9 @@ function radiusFun(player, message) {
         for (const p of allPlayers) {
             room.setPlayerDiscProperties(p.id, {radius: 15});
         }
-        room.sendAnnouncement("✅ Tamaño de todos los jugadores reseteado a 15.", null, 0x00FF00, "bold", 1);
+        // Se ELIMINÓ el anuncio de éxito para !radius reset.
+        // Si quieres un anuncio, descomenta la siguiente línea:
+        // room.sendAnnouncement("✅ Tamaño de todos los jugadores reseteado a 15.", null, 0x00FF00, "bold", 1);
         return false;
     }
 
@@ -176,8 +200,12 @@ function radiusFun(player, message) {
     }
 
     room.setPlayerDiscProperties(targetId, {radius: newRadius});
-    room.sendAnnouncement(`✅ Tamaño de ${targetPlayer.name} (ID: ${targetId}) cambiado a ${newRadius}`, null, 0x00FF00, "bold", 1);
-    return false; // Bloquea el mensaje en el chat público
+    
+    // Se ELIMINÓ la línea de anuncio:
+    // room.sendAnnouncement(`✅ Tamaño de ${targetPlayer.name} (ID: ${targetId}) cambiado a ${newRadius}`, null, 0x00FF00, "bold", 1);
+    
+    // ESTO SE MANTIENE: Bloquea el mensaje original del comando en el chat público.
+    return false; 
 }
 
 /* COMMANDS */
@@ -198,6 +226,12 @@ Example: \'!help bb\' will show the description of the \'bb\' command.`,
 	    This command changes a player's disc radius (size). Format: !radius <ID>-<size> or !radius reset (to reset all players to 15). Size must be between 5 and 30.`,
         function: radiusFun, // Enlaza al código que escribiste en el paso 1
     },
+clearchat: {
+    aliases: ['cc'], // Permite usar '!cc' como atajo
+    roles: Role.MASTER,
+    desc: "Limpia el historial del chat público con caracteres invisibles.",
+    function: clearChatFun,
+},
     claim: {
         aliases: [],
         roles: Role.PLAYER,
