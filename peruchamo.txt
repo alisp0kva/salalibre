@@ -151,63 +151,6 @@ function clearChatFun(player, message) {
     return false; 
 }
 
-/**
- * Función para cambiar el radio de un jugador
- * Formato: !radius <ID>-<tamaño> o !radius reset
- */
-function radiusFun(player, message) {
-    
-    const args = message.split(" ");
-    
-    // Comando !radius reset
-    if (args.length > 1 && args[1].toLowerCase() === "reset") {
-        const allPlayers = room.getPlayerList().filter(p => p.id !== 0);
-        // El radio por defecto en Haxball es 15
-        for (const p of allPlayers) {
-            room.setPlayerDiscProperties(p.id, {radius: 15});
-        }
-        // Se ELIMINÓ el anuncio de éxito para !radius reset.
-        // Si quieres un anuncio, descomenta la siguiente línea:
-        // room.sendAnnouncement("✅ Tamaño de todos los jugadores reseteado a 15.", null, 0x00FF00, "bold", 1);
-        return false;
-    }
-
-    // Comando !radius <ID>-<tamaño>
-    if (args.length < 2) {
-        room.sendAnnouncement("❌ Formato incorrecto. Usa: !radius <ID>-<tamaño> o !radius reset", player.id, 0xFF0000, "bold", 1);
-        return false;
-    }
-
-    const parts = args[1].split("-");
-    if (parts.length !== 2 || isNaN(parts[0]) || isNaN(parts[1])) {
-        room.sendAnnouncement("❌ Formato incorrecto. Usa: !radius <ID>-<tamaño> o !radius reset", player.id, 0xFF0000, "bold", 1);
-        return false;
-    }
-
-    const targetId = parseInt(parts[0]);
-    const newRadius = parseFloat(parts[1]);
-
-    // Validar rangos (5-120 es un rango razonable para evitar errores visuales)
-    if (newRadius < 5 || newRadius > 120) {
-        room.sendAnnouncement("❌ El tamaño debe estar entre 5 y 120.", player.id, 0xFF0000, "bold", 1);
-        return false;
-    }
-
-    const targetPlayer = room.getPlayer(targetId);
-    if (!targetPlayer) {
-        room.sendAnnouncement("❌ Jugador no encontrado.", player.id, 0xFF0000, "bold", 1);
-        return false;
-    }
-
-    room.setPlayerDiscProperties(targetId, {radius: newRadius});
-    
-    // Se ELIMINÓ la línea de anuncio:
-    // room.sendAnnouncement(`✅ Tamaño de ${targetPlayer.name} (ID: ${targetId}) cambiado a ${newRadius}`, null, 0x00FF00, "bold", 1);
-    
-    // ESTO SE MANTIENE: Bloquea el mensaje original del comando en el chat público.
-    return false; 
-}
-
 /* COMMANDS */
 
 var commands = {
@@ -218,13 +161,6 @@ var commands = {
 	This command shows all the available commands. It also can show the description of a command in particular.
 Example: \'!help bb\' will show the description of the \'bb\' command.`,
         function: helpCommand,
-    },
- radius: {
-        aliases: ['r'],
-        roles: Role.MASTER,
-        desc: `
-	    This command changes a player's disc radius (size). Format: !radius <ID>-<size> or !radius reset (to reset all players to 15). Size must be between 5 and 30.`,
-        function: radiusFun, // Enlaza al código que escribiste en el paso 1
     },
 clearchat: {
     aliases: ['cc'], // Permite usar '!cc' como atajo
@@ -344,17 +280,6 @@ Argument 1: <number> where <number> is the number associated with the admin give
 Example: !removeadmin #300 will remove admin to the player with id 300,
          !removeadmin 2 will remove the admin n°2 according to the 'adminList' command.`,
         function: removeAdminCommand,
-    },
-    password: {
-        aliases: ['pw'],
-        roles: Role.MASTER,
-        desc: `
-        This command allows to add a password to the room.
-    It takes 1 argument:
-    Argument 1: <password> where <password> is the password you want for the room.
-    
-    To remove the room password, simply enter '!password'.`,
-        function: passwordCommand,
     },
 };
 
