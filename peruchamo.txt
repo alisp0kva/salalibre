@@ -2,12 +2,12 @@
 
 /* ROOM */
 
-const roomName = '𝐒𝐀𝐋𝐀 𝐅𝐔𝐓𝐒𝐀𝐋 𝟐𝟒/𝟕| Pelayo ❤️';
+const roomName = 'TODOS JUEGAN 24/7 | Ardilla ❤️';
 const maxPlayers = 30;
 const roomPublic = true;
 
 // GEOLOCALIZATION //
-const geo = [{"code": "UY", "lat": 40, "lon": -3}];
+const geo = [{"code": "VE", "lat": 40, "lon": -3}];
 
 var roomWebhook = 'https://discord.com/api/webhooks/1434822868054704272/ko6EXaCX39gO1RDlPDl-QIq7e5Gi4AazRGcyQ06prwRR4KI0oSth94_v30bSjU-_IuaN'; // this webhook is used to send the details of the room (chat, join, leave) ; it should be in a private discord channel
 var gameWebhook = 'https://discord.com/api/webhooks/1434823635482181702/OKvdtQpyo7zEFfpCU9N1skTliSL8GSjVp2KBbT1a49MZhhUallkbO9EAF7kzcUelMX-c'; // this webhook is used to send the summary of the games ; it should be in a public discord channel
@@ -1852,7 +1852,7 @@ room.onPlayerJoin = function (player) {
         }).then((res) => res);
     }
     room.sendAnnouncement(
-        `❤ Bienvenido ${player.name} a la sala. UNETE A LA COMUNIDAD DE HAXBALL > https://discord.gg/qg3PKnXkHA \n sala creada por ardilla ❤`,
+        `❤ Bienvenido ${player.name}. \n sala en homenaje al difunto hermano mc ardilla ❤`,
         player.id,
         welcomeColor,
         'bold',
