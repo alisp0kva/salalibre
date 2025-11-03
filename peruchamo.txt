@@ -2,7 +2,7 @@
 
 /* ROOM */
 
-const roomName = 'TODOS JUEGAN 24/7 | Ardilla ❤️';
+const roomName = '𝐒𝐀𝐋𝐀 𝐅𝐔𝐓𝐒𝐀𝐋 𝟐𝟒/𝟕| Ardilla ❤️';
 const maxPlayers = 30;
 const roomPublic = true;
 
