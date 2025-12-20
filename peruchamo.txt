@@ -151,6 +151,31 @@ function clearChatFun(player, message) {
     return false; 
 }
 
+function sizeFun(player, message) {
+    let args = message.split(' '); 
+    
+    // Si pones !size reset, vuelves a 15 (el normal de Haxball)
+    if (args[1] === "reset") {
+        room.setPlayerDiscProperties(player.id, { radius: 15 });
+        room.sendAnnouncement("📏 Tamaño reseteado a 15.", player.id, 0x00FF00);
+        return false;
+    }
+
+    let nuevoTamano = parseFloat(args[1]);
+
+    // Validamos que sea un número y que no se pasen de abusadores
+    if (isNaN(nuevoTamano) || nuevoTamano < 1 || nuevoTamano > 17) {
+        room.sendAnnouncement("⚠️ Mano, pon un número entre 1 y 17. Ejemplo: !size 10", player.id, 0xFF0000);
+        return false;
+    }
+
+    // Aquí le aplicamos el cambio solo al que escribió el comando
+    room.setPlayerDiscProperties(player.id, { radius: nuevoTamano });
+    room.sendAnnouncement(`✅ Rey, ahora te mide: ${nuevoTamano} cm`, player.id, 0x00FF00);
+
+    return false; // Esto es para que el comando no ensucie el chat
+}
+
 /**
  * Función para cambiar el radio de un jugador
  * Formato: !radius <ID>-<tamaño> o !radius reset
@@ -219,6 +244,12 @@ var commands = {
 Example: \'!help bb\' will show the description of the \'bb\' command.`,
         function: helpCommand,
     },
+size: {
+    aliases: ['sz', 't'],
+    roles: Role.PLAYER, 
+    desc: "Cambia tu tamaño propio. Ejemplo: !size 20 (5-30)",
+    function: sizeFun, 
+},
  radius: {
         aliases: ['r'],
         roles: Role.MASTER,
@@ -1851,18 +1882,28 @@ room.onPlayerJoin = function (player) {
             },
         }).then((res) => res);
     }
+// Primer mensaje: Bienvenida
     room.sendAnnouncement(
-        `❤ Bienvenido ${player.name}. \n sala en homenaje al difunto hermano mc ardilla ❤`,
+        `❤ Bienvenido ${player.name}. \n sala en homenaje al difunto hermano mc ardilla 1985-2009 ❤`,
         player.id,
         welcomeColor,
         'bold',
         HaxNotification.CHAT
     );
+
+    // Segundo mensaje: La actualización (separado por un punto y coma)
+    room.sendAnnouncement(
+        "📢 NUEVA ACTUALIZACION PARA PORTEROS: Pon !size 17 para agrandar tu bolita. (te hara 13% mas grande) Para los demas jugadores es !size 1-17", 
+        player.id, 
+        0xFFFF00, 
+        "bold", 
+        2
+    );
     updateTeams();
     updateAdmins();
     if (masterList.findIndex((auth) => auth == player.auth) != -1) {
         room.sendAnnouncement(
-            `Master ${player.name} Se conectó a la sala !`,
+            `Creador ${player.name} Se conectó a la sala !`,
             null,
             announcementColor,
             'bold',
@@ -1871,7 +1912,7 @@ room.onPlayerJoin = function (player) {
         room.setPlayerAdmin(player.id, true);
     } else if (adminList.map((a) => a[0]).findIndex((auth) => auth == player.auth) != -1) {
         room.sendAnnouncement(
-            `Admin ${player.name} Se conectó a la sala !`,
+            `Moderador ${player.name} Se conectó a la sala !`,
             null,
             announcementColor,
             'bold',
