@@ -2,15 +2,15 @@
 
 /* ROOM */
 
-const roomName = '𝐒𝐀𝐋𝐀 𝐅𝐔𝐓𝐒𝐀𝐋 𝟐𝟒/𝟕| Ardilla ❤️';
+const roomName = 'BASE MILITAR 24/7| ANTIGRINGOS';
 const maxPlayers = 30;
 const roomPublic = true;
 
 // GEOLOCALIZATION //
 const geo = [{"code": "VE", "lat": 40, "lon": -3}];
 
-var roomWebhook = 'https://discord.com/api/webhooks/1434822868054704272/ko6EXaCX39gO1RDlPDl-QIq7e5Gi4AazRGcyQ06prwRR4KI0oSth94_v30bSjU-_IuaN'; // this webhook is used to send the details of the room (chat, join, leave) ; it should be in a private discord channel
-var gameWebhook = 'https://discord.com/api/webhooks/1434823635482181702/OKvdtQpyo7zEFfpCU9N1skTliSL8GSjVp2KBbT1a49MZhhUallkbO9EAF7kzcUelMX-c'; // this webhook is used to send the summary of the games ; it should be in a public discord channel
+var roomWebhook = 'https://discord.com/api/webhooks/1457472071167901941/8tAq-OLJAu95kTjuS1J8GUyZoAXKljbV5vTcutfRDYd3Gc8Bxeq6uNF7cPypiQjcdhke'; // this webhook is used to send the details of the room (chat, join, leave) ; it should be in a private discord channel
+var gameWebhook = 'https://discord.com/api/webhooks/1462110680852463870/NSGqB1cjbnKIKpN8sOo2-LKX1IXdX7xxZJVbh2tXZd7F7CBXngVkxJHUwYBuh2tLcDAf'; // this webhook is used to send the summary of the games ; it should be in a public discord channel
 var fetchRecordingVariable = true;
 var timeLimit = 0;
 var scoreLimit = 0;
