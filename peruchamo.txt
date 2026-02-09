@@ -2,15 +2,15 @@
 
 /* ROOM */
 
-const roomName = 'BASE MILITAR 24/7| ANTIGRINGOS';
+const roomName = '𝐒𝐀𝐋𝐀 𝐋𝐈𝐁𝐑𝐄 𝟐𝟒/𝟕 | FINAL ❤';
 const maxPlayers = 30;
 const roomPublic = true;
 
 // GEOLOCALIZATION //
 const geo = [{"code": "VE", "lat": 40, "lon": -3}];
 
-var roomWebhook = 'https://discord.com/api/webhooks/1457472071167901941/8tAq-OLJAu95kTjuS1J8GUyZoAXKljbV5vTcutfRDYd3Gc8Bxeq6uNF7cPypiQjcdhke'; // this webhook is used to send the details of the room (chat, join, leave) ; it should be in a private discord channel
-var gameWebhook = 'https://discord.com/api/webhooks/1462110680852463870/NSGqB1cjbnKIKpN8sOo2-LKX1IXdX7xxZJVbh2tXZd7F7CBXngVkxJHUwYBuh2tLcDAf'; // this webhook is used to send the summary of the games ; it should be in a public discord channel
+var roomWebhook = ''; // this webhook is used to send the details of the room (chat, join, leave) ; it should be in a private discord channel
+var gameWebhook = ''; // this webhook is used to send the summary of the games ; it should be in a public discord channel
 var fetchRecordingVariable = true;
 var timeLimit = 0;
 var scoreLimit = 0;
@@ -1884,7 +1884,7 @@ room.onPlayerJoin = function (player) {
     }
 // Primer mensaje: Bienvenida
     room.sendAnnouncement(
-        `❤ Bienvenido ${player.name}. \n sala en homenaje al difunto hermano mc ardilla 1985-2009 ❤`,
+        `❤ Bienvenido ${player.name}. \n La sala será cerrada el 10 de febrero (mañana). La decisión es sencilla: ya no me resulta rentable ni coherente mantener algo que, a día de hoy, ya no utilizo. Ha sido un año entero ofreciendo salas a la comunidad española y para mí ha sido una experiencia muy bonita; ver a personas jugar aquí a diario siempre me dio satisfacción. Siempre me ha gustado crear servidores, lo he hecho en GTA, Minecraft e incluso en CS 1.6. A nivel personal estoy bien, gracias a Dios tengo trabajo, pero con el tiempo cambian las prioridades y con 23 años siento que ya no puedo ni quiero dedicarle el mismo tiempo al juego, prefiero cerrar esta etapa de forma honesta antes que mantenerla a medias. Gracias a todos los que pasaron por la sala y la mantuvieron viva durante este tiempo, ha sido una bonita experiencia. ❤ Quiero agradecer especialmente a personas como TOPROX, MOHA, LISTO1902, LAGSINHO, FRANQUINHO y PELAYO (que la alquiló 2 meses).`,
         player.id,
         welcomeColor,
         'bold',
@@ -1893,7 +1893,7 @@ room.onPlayerJoin = function (player) {
 
     // Segundo mensaje: La actualización (separado por un punto y coma)
     room.sendAnnouncement(
-        "📢 NUEVA ACTUALIZACION PARA PORTEROS: Pon !size 17 para agrandar tu bolita. (te hara 13% mas grande) Para los demas jugadores es !size 1-17", 
+        "También quiero dejar un mensaje importante: cuidado con la adicción a los videojuegos, Haxball es un juego para divertirse un rato, pero cuando se convierte en pasar horas y horas todos los días, aislados y dejando de lado la vida real, a la larga pasa factura. Muchos de ustedes sois adolescentes y esa etapa no vuelve; aprovechadla, salid, haced amigos, vivid experiencias y disfrutad del tiempo fuera de la pantalla, el juego siempre va a estar ahí, pero la juventud no.", 
         player.id, 
         0xFFFF00, 
         "bold", 
